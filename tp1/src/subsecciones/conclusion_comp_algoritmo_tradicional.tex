@@ -1,0 +1,21 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c |}
+        \hline
+        Cant. de Operaciones & Algoritmo de Karatsuba & Método tradicional\\
+        \hline
+        Sumas & 138 & 39\\
+        \hline
+        Multiplicaciones & 95 & 64\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Comparación de cantidad de opearciones (sumas y multiplicaciones) computadas entre el algoritmo de Karatsuba y el método tradicional}}
+\end{table}
+
+Analizando la tabla 1.6 de arriba se puede observar que el algoritmo de Karatsuba tiene una cantidad de operaciones mayor que el método tradicional tanto en multipliaciones como en sumas. Éste resultado refuerza lo concluido en la sección 1.3.1. Efectivamente no es conveniente utilizar el algoritmo de Karatsuba por sobre el método tradicional en este caso.
+
+Se observa que, para un $n$ suficientemente grande, el algoritmo de Karatsuba realizará menos desplazamientos y sumas de un solo dígito que la multiplicación a mano, incluso cuando su caso base use más sumas y desplazamientos que la fórmula sencilla. Para valores pequeños de $n$, sin embargo, los desplazamientos y operaciones de suma pueden hacerlo ir más lentamente que el método tradicional.
+
+Por otro lado si bien ambos algoritmos son óptimos, pero parece que el método tradicional es más eficiente en la multiplicación dada su menor cantidad de operaciones.

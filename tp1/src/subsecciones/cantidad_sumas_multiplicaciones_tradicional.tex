@@ -1,0 +1,44 @@
+\documentclass[../main.tex]{subfiles}
+
+Tanto el multiplicando como el multiplicador son enteros de 8 dígitos. En el método tradicional, a cada dígito del multiplicador le corresponde multiplicar un dígito del multiplicando, por ello, en la columna de "Cantidad de multiplicaciones" todas las celdas tienen el mismo valor (8). Para el caso de la columna de "Cantidad de sumas", los valores corresponden a la cantidad de veces que se sumó la unidad del resultado de una multiplicación con el carry de la suma anterior.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c |}
+        \hline
+        Multiplicación & Cantidad de & Cantidad de \\
+        (1.2.5) & mutliplicaciones & sumas \\
+        \hline
+        (1) & 8 & 5\\
+        \hline
+        (2) & 8 & 5\\
+        \hline
+        (3) & 8 & 5\\
+        \hline
+        (4) & 8 & 5\\
+        \hline
+        (5) & 8 & 5\\
+        \hline
+        (6) & 8 & 5\\
+        \hline
+        (7) & 8 & 1\\
+        \hline
+        (8) & 8 & 1\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Cantidad de sumas y multiplicaciones computadas utilizando el método tradicional (iteración por iteración).}}
+\end{table}
+
+Sumando las cantidades de multiplicaciones y sumas de cada iteración, más la suma final de los resultados concretos de las iteraciones, se obtiene el siguiente resultado:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c |}
+        \hline
+        Sumas & Multiplicaciones\\
+        \hline
+        39 & 64\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Cantidad de sumas y multiplicaciones totales computadas con el método tradicional}}
+\end{table}

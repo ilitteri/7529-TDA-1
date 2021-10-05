@@ -1,0 +1,108 @@
+\documentclass[../main.tex]{subfiles}
+
+\subsection{Preliminar}
+
+Dada la siguiente relación de recurrencia
+
+\begin{equation*}
+    aT\left(\frac{n}{b}\right) + \mathcal{O}(c)
+\end{equation*}
+
+Con:
+
+\begin{equation*}
+    \begin{aligned}
+        a&: 1 + \text{(los dos dígitos del padrón de la izquierda mod 9)}&\\
+        b&: 2 + \text{(los dos dígitos del padrón de la izquierda mod 7)}&\\
+        c&: \text{“n” si su padrón es múltiplo de 4,}&\\
+         &   \text{sino “$n\log(n)$” si su padrón es múltiplo de 3,}&\\
+         &   \text{sino “$n^{2}$”}&
+    \end{aligned}
+\end{equation*}
+
+Con mi padrón: 106223, las letras serían
+
+\begin{align*}
+    a &= 1 + (10 \bmod 9) = 2\\
+    b &= 2 + (10 \bmod 7) = 5\\
+    c &= 106223 \bmod 3 \neq 0, 106223 \bmod 4 \neq 0 \Rightarrow c = n^{2}\\
+\end{align*}
+
+Luego reemplazando los valores la relación de recurrencia queda:
+
+\begin{equation*}
+    2T\left(\frac{n}{5}\right) + \mathcal{O}(n^{2})
+\end{equation*}
+
+\subsection{Verificación de caso base constante de la relación de recurrencia}
+
+Para que a la relación de recurrencia se le pueda aplicar el teorema maestro, lo que hace falta es que el caso base sea constante, es decir:
+
+\begin{equation*}
+    T(0) = cte
+\end{equation*}
+
+\subsection{Cálculo de la complejidad temporal de la relación de recurrencia}
+
+\subsubsection{Teorema maestro}
+
+Sean $a \geq 1$ y $b \geq 1$ constantes, $f(n)$ una función, y tenemos una función de recurrencia $T(n) = aT\left(\frac{n}{b}\right) + f(n)$ con $T(0) = cte$. Entonces:
+
+\begin{enumerate}
+    \item Si $f(n) = \mathcal{O}(n^{\log_{b}(a)-e})$, $e > 0 \Rightarrow T(n) = \Theta(n^{\log_{b}(a)})$. 
+    \item Si $f(n) = \Theta(n^{\log_{b}(a)}) \Rightarrow T(n) = \Theta(n^{\log_{b}(a)} \cdot \log(n))$. 
+    \item Si $f(n) = \Omega(n^{\log_{b}(a)+e})$, $e > 0 \Rightarrow T(n) = \Theta(n)$. 
+\end{enumerate}
+
+Y $af\left(\frac{n}{b}\right) \leq cf(n)$, $c<1$, y $n>>$
+
+\subsubsection{Aplicación del teorema maestro}
+
+Primero identificamos las constantes $a$, $b$ y $c$ de la relación de recurrencia:
+
+\begin{equation*}
+    T(n) = \underbrace{2}_{a}T\left(\frac{n}{\underbrace{5}_b}\right) + \mathcal{O}(\underbrace{n^{2}}_c)
+\end{equation*}
+
+\begin{equation*}
+    \begin{aligned}
+        a &= 2\\
+        b &= 5\\
+        c &= n^{2}
+    \end{aligned}
+\end{equation*}
+
+verifico que $a = 2 \geq 1$ y $b = 5 \geq 1$ son constantes, y que $f(n) = n^{2}$ es una función, además $T(0) = cte$ es un caso base constante.
+
+Ahora que verificamos que se le puede aplicar el teorema maestro, intento primero comprobar la primer condición, :
+
+\begin{equation*}
+    \mathcal{O}(n^{\log_{b}(a)-e}) \approx \mathcal{O}(n^{0.43-e}), e > 0
+\end{equation*}
+\begin{equation*}
+    0.43 - e < 0 \Rightarrow \text{ no se cumple porque en ese caso no podría acotar a $n^{2}$}
+\end{equation*}
+
+Se prueba el siguiente caso:
+
+\begin{equation*}
+    \Theta(n^{\log_{b}(a)}) \approx \Theta(n^{0.43})
+\end{equation*}
+\begin{equation*}
+    0.43 < 2 \Rightarrow \text{ no se cumple porque en ese caso no podría acotar a $n^{2}$}
+\end{equation*}
+
+Ahora el último caso:
+
+\begin{equation*}
+    \Omega(n^{\log_{b}(a)+e}) \approx \Omega(n^{0.43+e})
+\end{equation*}
+\begin{equation*}
+    0.43 + e > 0 \Rightarrow \text{ este caso se cumple, porque puede acotar a $n^{2}$}
+\end{equation*}
+
+Finalmente:
+
+\begin{equation*}
+    \boxed{T(n) = \Theta(n^{2})}
+\end{equation*}

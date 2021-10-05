@@ -1,0 +1,1487 @@
+\documentclass[../main.tex]{subfiles}
+
+\textit{Para lo que sigue, la función k(x, y) representa la función del algoritmo de Karatsuba}\\
+
+Para mi caso los números a multiplicar son 33524113 y 22986555. Entonces tenemos lo siguiente:
+\begin{equation*}
+    x \cdot y
+    \quad \therefore x = 33524113, y = 22986555
+\end{equation*}
+
+Entonces debemos llamar una primera vez a la función de esta manera: $k(33524113, 22986555)$
+
+Como el $x_{0}$ y el $y_{0}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x$ e $y$ dividido 2, en este caso ambos tienen 8 dígitos, luego la mitad es 4.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad &= max(len(33524113), len(22986555))\ //\ 2\\
+              &= 4
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{0}$ e $y_{0}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{0} = \underbrace{3352}_{a_{0}}\underbrace{4113}_{b_{0}}&, y = \underbrace{2298}_{c_{0}}\underbrace{6555}_{d_{0}}\\
+        a_{0} = 3352, b_{0} = 4113&, c_{0} = 2298, d_{0} = 6555
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{0} \cdot c_{0}$, $b_{0} \cdot d_{0}$, y $(a_{0}+b_{0}) \cdot (c_{0}+d_{0})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{0} \cdot c_{0}$ Llamando a $k(a_{0}, c_{0})$.
+
+Como el $x_{1}$ y el $y_{1}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{0}$ e $y_{0}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{1} &= max(len(x_{1}), len(y_{1}))\ //\ 2\\
+        &= max(len(3352), len(2298))\ //\ 2\\
+        &= 2
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{1}$ e $y_{1}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{1} = \underbrace{33}_{a_{1}}\underbrace{52}_{b_{1}}&, y_{1} = \underbrace{22}_{c_{1}}\underbrace{98}_{d_{1}}\\
+        a_{1}= 33, b_{1} = 52&, c_{1} = 22, d_{1} = 98
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{1} \cdot c_{1}$, $b_{1} \cdot d_{1}$, y $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{1} \cdot c_{1}$ Llamando a $k(a_{1}, c_{1})$.
+
+Como el $x_{2}$ y el $y_{2}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{1}$ e $y_{1}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(33), len(22))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{3}_{a_{2}}\underbrace{3}_{b_{2}}&, y_{2} = \underbrace{2}_{c_{2}}\underbrace{2}_{d_{2}}\\
+        a_{2}= 3, b_{2} = 3&, c_{2} = 5, d_{2} = 2
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 3$ y el $y_{3} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 3 \cdot 2 = 6
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 3$ y el $y_{3} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 3 \cdot 2 = 6
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 3 + 3 = 6$ y el $y_{3} = 2 + 2 = 4$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 6 \cdot 4 = 24
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 12
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}\\
+\end{equation*}
+\begin{equation*}
+    6 \cdot 10^{2} + 12 \cdot 10^{1} + 6 = 726\\
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{1} \cdot c_{1}$, para seguir con la siguiente multiplicación, $b_{1} \cdot d_{1}$, llamamos a la función  $k(b_{1}, d_{1})$.
+
+Como el $x_{2}$ y el $y_{2}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(52), len(98))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{5}_{a_{2}}\underbrace{2}_{b_{2}}&, y_{2} = \underbrace{9}_{c_{2}}\underbrace{8}_{d_{2}}\\
+        a_{2}= 5, b_{2} = 2&, c_{2} = 9, d_{2} = 8
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3}$ y el $y_{3}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 5 \cdot 9 = 45
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 3$ y el $y_{3} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 2 \cdot 8 = 16
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 5 + 2 = 7$ y el $y_{3} = 9 + 8 = 17$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(7), len(17))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $x_{3} = 07$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{7}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{7}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 7&, c_{3} = 1, d_{3} = 7
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 7$ y el $y_{4} = 7$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 7 \cdot 7 = 49
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 7 = 7$ y el $y_{4} = 1 + 7 = 8$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 7 \cdot 8 = 56
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 7
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 7 \cdot 10^{1} + 49 = 119
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 58
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{2} \cdot c_{2} \cdot 10^{(2 \cdot mitad_{2})} + ((a_{2} \cdot d_{2} + b_{2} \cdot c_{2}) \cdot 10^{mitad_{2}}) + b_{2} \cdot d_{2}
+\end{equation*}
+\begin{equation*}
+    45 \cdot 10^{2} + 58 \cdot 10^{1} + 16 = 5096
+\end{equation*}
+
+Ahora tenemos el resultado de $b_{1} \cdot d_{1}$, para seguir con la siguiente multiplicación, $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$, llamamos a la función  $k(a_{1}+b_{1}, c_{1}+d_{1})$.
+
+Como el $x_{2} = 33 + 55 = 88$ y el $y_{2} = 22 + 98 = 120$ son números tiene más de una cifra, no entramos en el caso base.
+
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(88), len(120))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{8}_{a_{2}}\underbrace{8}_{b_{2}}&, y_{2} = \underbrace{12}_{c_{2}}\underbrace{0}_{d_{2}}\\
+        a_{2}= 8, b_{2} = 8&, c_{2} = 12, d_{2} = 0
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 8$ y el $y_{3} = 12$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(8), len(12))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $x_{3} = 08$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{8}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{2}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 8&, c_{3} = 1, d_{3} = 2
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 7$ y el $y_{4} = 7$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 8 \cdot 2 = 16
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 8 = 8$ y el $y_{4} = 1 + 2 = 3$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 8 \cdot 3 = 24
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 8
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 8 \cdot 10^{1} + 16 = 96
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 5$ y el $y_{3} = 0$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 5 \cdot 0 = 0
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 8 + 5 = 13$ y el $y_{3} = 12 + 0 = 12$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(13), len(12))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{1}_{a_{3}}\underbrace{3}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{2}_{d_{3}}\\
+        a_{3} = 1, b_{3} = 3&, c_{3} = 1, d_{3} = 2
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 1 = 1
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 3$ y el $y_{4} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 3 \cdot 2 = 6
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 1 + 3 = 4$ y el $y_{4} = 1 + 2 = 3$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 4 \cdot 3 = 12
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 5
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    1 \cdot 10^{2} + 5 \cdot 10^{1} + 6 = 156
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 60
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}\\
+\end{equation*}
+\begin{equation*}
+    96 \cdot 10^{2} + 60 \cdot 10^{1} + 0 = 10200\\
+\end{equation*}
+
+Al valor retornado de $k(a_{1}+b_{1}, c_{1}+d_{1})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{1} \cdot c_{1}$ y $b_{1} \cdot b_{1}$) para obtener $a_{1} \cdot d_{1} + b_{1} \cdot c_{1}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{1} \cdot d_{1} + b_{1} \cdot c_{1} &= (a_{1}+b_{1} \cdot c_{1}+d_{1}) - a_{1} \cdot c_{1} - b_{1} \cdot b_{1}\\
+        &= 4378
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $0$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}
+\end{equation*}
+\begin{equation*}
+    726 \cdot 10^{2} + 4378 \cdot 10^{1} + 5096 = 7702896
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 58
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{2} \cdot c_{2} \cdot 10^{(2 \cdot mitad_{2})} + ((a_{2} \cdot d_{2} + b_{2} \cdot c_{2}) \cdot 10^{mitad_{2}}) + b_{2} \cdot d_{2}
+\end{equation*}
+\begin{equation*}
+    45 \cdot 10^{2} + 58 \cdot 10^{1} + 16 = 5096
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{0} \cdot c_{0}$, para seguir con la siguiente multiplicación, $b_{0} \cdot d_{0}$, llamamos a la función  $k(b_{0}, d_{0})$.
+
+Como el $x_{1}$ y el $y_{1}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{1}$ e $y_{1}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{1} &= max(len(x_{1}), len(y_{1}))\ //\ 2\\
+        &= max(len(4113), len(6555))\ //\ 2\\
+        &= 2
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{1}$ e $y_{1}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{1} = \underbrace{41}_{a_{1}}\underbrace{13}_{b_{1}}&, y_{1} = \underbrace{65}_{c_{1}}\underbrace{55}_{d_{1}}\\
+        a_{1}= 41, b_{1} = 13&, c_{1} = 65, d_{1} = 55
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{1} \cdot c_{1}$, $b_{1} \cdot d_{1}$, y $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{1} \cdot c_{1}$ Llamando a $k(a_{1}, c_{1})$.
+
+Como el $x_{2}$ y el $y_{2}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(41), len(65))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{4}_{a_{2}}\underbrace{1}_{b_{2}}&, y_{2} = \underbrace{6}_{c_{2}}\underbrace{5}_{d_{2}}\\
+        a_{2}= 4, b_{2} = 1&, c_{2} = 6, d_{2} = 5
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 4$ y el $y_{3} = 6$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 4 \cdot 6 = 24
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 1$ y el $y_{3} = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 1 \cdot 5 = 5
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 4 + 1 = 5$ y el $y_{3} = 6 + 5 = 11$ hay un número de más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(5), len(11))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $x_{3} = 05$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{5}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{1}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 5&, c_{3} = 1, d_{3} = 1
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 5$ y el $y_{4} = 1$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 5 \cdot 1 = 5
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 5 = 5$ y el $y_{4} = 1 + 1 = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 5 \cdot 2 = 10
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 5
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 5 \cdot 10^{1} + 5 = 55
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 26
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{2} \cdot c_{2} \cdot 10^{(2 \cdot mitad_{2})} + ((a_{2} \cdot d_{2} + b_{2} \cdot c_{2}) \cdot 10^{mitad_{2}}) + b_{2} \cdot d_{2}
+\end{equation*}
+\begin{equation*}
+    24 \cdot 10^{2} + 26 \cdot 10^{1} + 5 = 2665
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{1} \cdot c_{1}$, para seguir con la siguiente multiplicación, $b_{1} \cdot d_{1}$, llamamos a la función  $k(b_{1}, d_{1})$.
+
+Como el $x_{2}$ y el $y_{2}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(13), len(55))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{1}_{a_{2}}\underbrace{3}_{b_{2}}&, y_{2} = \underbrace{5}_{c_{2}}\underbrace{5}_{d_{2}}\\
+        a_{2}= 1, b_{2} = 3&, c_{2} = 5, d_{2} = 5
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 1$ y el $y_{3} = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 1 \cdot 5 = 5
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 3$ y el $y_{3} = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 3 \cdot 5 = 15
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 1 + 3 = 4$ y el $y_{3} = 5 + 5 = 10$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(4), len(10))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $x_{3} = 04$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{4}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{0}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 4&, c_{3} = 1, d_{3} = 0
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4} = 0$ y el $y_{4} = 1$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 4$ y el $y_{4} = 0$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 4 \cdot 0 = 0
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 4 = 4$ y el $y_{4} = 1 + 0 = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 4 \cdot 1 = 4
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 4
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 4 \cdot 10^{1} + 0 = 40
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 20
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{2} \cdot c_{2} \cdot 10^{(2 \cdot mitad_{2})} + ((a_{2} \cdot d_{2} + b_{2} \cdot c_{2}) \cdot 10^{mitad_{2}}) + b_{2} \cdot d_{2}
+\end{equation*}
+\begin{equation*}
+    5 \cdot 10^{2} + 20 \cdot 10^{1} + 15 = 715
+\end{equation*}
+
+Ahora tenemos el resultado de $b_{1} \cdot d_{1}$, para seguir con la siguiente multiplicación, $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$, llamamos a la función  $k(a_{1}+b_{1}, c_{1}+d_{1})$.
+
+Ahora tenemos el resultado de $b_{1} \cdot d_{1}$, para seguir con la siguiente multiplicación, $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$, llamamos a la función  $k(a_{1}+b_{1}, c_{1}+d_{1})$.
+
+Como el $x_{2} = 41 + 13 = 54$ y el $y_{2} = 65 + 55 = 120$ son números tiene más de una cifra, no entramos en el caso base.
+
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(54), len(120))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{5}_{a_{2}}\underbrace{4}_{b_{2}}&, y_{2} = \underbrace{12}_{c_{2}}\underbrace{0}_{d_{2}}\\
+        a_{2}= 5, b_{2} = 4&, c_{2} = 12, d_{2} = 0
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 5$ y el $y_{3} = 12$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(5), len(12))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $x_{3} = 05$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{5}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{2}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 5&, c_{3} = 1, d_{3} = 2
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 5$ y el $y_{4} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 5 \cdot 2 = 10
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 5 = 5$ y el $y_{4} = 1 + 2 = 3$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 5 \cdot 3 = 15
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 5
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 5 \cdot 10^{1} + 10 = 60
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 4$ y el $y_{3} = 0$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 4 \cdot 0 = 0
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 5 + 4 = 9$ y el $y_{3} = 12 + 0 = 12$ uno de los números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(9), len(12))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{0}_{a_{3}}\underbrace{9}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{2}_{d_{3}}\\
+        a_{3} = 0, b_{3} = 9&, c_{3} = 1, d_{3} = 2
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 0 \cdot 1 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 9$ y el $y_{4} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 9 \cdot 2 = 18
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 0 + 9 = 9$ y el $y_{4} = 1 + 2 = 3$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 9 \cdot 3 = 27
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 11
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 9 \cdot 10^{1} + 18 = 108
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 48
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}\\
+\end{equation*}
+\begin{equation*}
+    60 \cdot 10^{2} + 48 \cdot 10^{1} + 0 = 6480\\
+\end{equation*}
+
+Al valor retornado de $k(a_{1}+b_{1}, c_{1}+d_{1})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{1} \cdot c_{1}$ y $b_{1} \cdot b_{1}$) para obtener $a_{1} \cdot d_{1} + b_{1} \cdot c_{1}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{1} \cdot d_{1} + b_{1} \cdot c_{1} &= (a_{1}+b_{1} \cdot c_{1}+d_{1}) - a_{1} \cdot c_{1} - b_{1} \cdot b_{1}\\
+        &= 3100
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $0$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}
+\end{equation*}
+\begin{equation*}
+    2665 \cdot 10^{2} + 3100 \cdot 10^{1} + 715 = 26960715
+\end{equation*}
+
+%start10
+Ahora tenemos el resultado de $b_{0} \cdot d_{0}$, para seguir con la siguiente multiplicación, $(a_{0}+b_{0}) \cdot (c_{0}+d_{0})$, llamamos a la función  $k(a_{0}+b_{0}, c_{0}+d_{0})$.
+
+Como el $x_{1} = 3352 + 4113 = 7465$ y el $y_{1} = 2298 + 6555 = 8853$ son números tiene más de una cifra, no entramos en el caso base.
+
+Se calcula la mitad a partir del máximo de dígitos entre $x_{1}$ e $y_{1}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{1} &= max(len(x_{1}), len(y_{1}))\ //\ 2\\
+        &= max(len(7465), len(8853))\ //\ 2\\
+        &= 2
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{1}$ e $y_{1}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{1} = \underbrace{74}_{a_{1}}\underbrace{65}_{b_{1}}&, y_{1} = \underbrace{88}_{c_{1}}\underbrace{53}_{d_{1}}\\
+        a_{1}= 74, b_{1} = 65&, c_{1} = 88, d_{1} = 53
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{1} \cdot c_{1}$, $b_{1} \cdot d_{1}$, y $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{1} \cdot c_{1}$ Llamando a $k(a_{1}, c_{1})$.
+
+Como el $x_{2} = 74$ y el $y_{2} = 88$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(74), len(88))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$ (como $x_{2}$ es de una cifra, completo con un cero adelante, luego $x_{2} = 08$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{7}_{a_{2}}\underbrace{4}_{b_{2}}&, y_{2} = \underbrace{8}_{c_{2}}\underbrace{8}_{d_{2}}\\
+        a_{2} = 7, b_{2} = 4&, c_{2} = 8, d_{2} = 8
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 7$ y el $y_{3} = 8$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 7 \cdot 8 = 56
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{2} = 4$ y el $y_{2} = 8$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{2} \cdot y_{2} = 4 \cdot 8 = 32
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 7 + 4 = 11$ y el $y_{3} = 8 + 8 = 16$ son números de más de una cifra.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(11), len(16))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{1}_{a_{3}}\underbrace{1}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{6}_{d_{3}}\\
+        a_{3} = 1, b_{3} = 1&, c_{3} = 1, d_{3} = 6
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4} = 1$ y el $y_{4} = 1$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 1 = 1
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 3$ y el $y_{4} = 2$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 6 = 6
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 1 + 1 = 2$ y el $y_{4} = 1 + 6 = 7$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 2 \cdot 7 = 14
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 7
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    1 \cdot 10^{2} + 7 \cdot 10^{1} + 6 = 176
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 88
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}\\
+\end{equation*}
+\begin{equation*}
+    56 \cdot 10^{2} + 88 \cdot 10^{1} + 32 = 6512\\
+\end{equation*}
+
+
+%end10
+Ahora tenemos el resultado de $a_{1} \cdot c_{1}$, para seguir con la siguiente multiplicación, $b_{1} \cdot d_{1}$, llamamos a la función  $k(b_{1}, d_{1})$.
+
+Como el $x_{2}$ y el $y_{2}$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 2 dígitos, luego la mitad es 1.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(65), len(53))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{6}_{a_{2}}\underbrace{5}_{b_{2}}&, y_{2} = \underbrace{5}_{c_{2}}\underbrace{3}_{d_{2}}\\
+        a_{2}= 6, b_{2} = 5&, c_{2} = 5, d_{2} = 3
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 6$ y el $y_{3} = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 6 \cdot 5 = 30
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 5$ y el $y_{3} = 3$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 5 \cdot 3 = 15
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 6 + 5 = 11$ y el $y_{3} = 5 + 3 = 8$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(11), len(8))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$ (como $x_{3}$ es de una cifra, completo con un cero adelante, luego $y_{3} = 08$):
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{1}_{a_{3}}\underbrace{1}_{b_{3}}&, y_{3} = \underbrace{0}_{c_{3}}\underbrace{8}_{d_{3}}\\
+        a_{3} = 1, b_{3} = 1&, c_{3} = 0, d_{3} = 8
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4} = 1$ y el $y_{4} = 0$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 0 = 0
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 1$ y el $y_{4} = 8$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 8 = 8
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 1 + 1 = 2$ y el $y_{4} = 0 + 8 = 8$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 2 \cdot 8 = 16
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 8
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    0 \cdot 10^{2} + 8 \cdot 10^{1} + 8 = 88
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 43
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{2} \cdot c_{2} \cdot 10^{(2 \cdot mitad_{2})} + ((a_{2} \cdot d_{2} + b_{2} \cdot c_{2}) \cdot 10^{mitad_{2}}) + b_{2} \cdot d_{2}
+\end{equation*}
+\begin{equation*}
+    30 \cdot 10^{2} + 43 \cdot 10^{1} + 15 = 3445
+\end{equation*}
+
+Ahora tenemos el resultado de $b_{1} \cdot d_{1}$, para seguir con la siguiente multiplicación, $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$, llamamos a la función  $k(a_{1}+b_{1}, c_{1}+d_{1})$.
+
+Ahora tenemos el resultado de $b_{1} \cdot d_{1}$, para seguir con la siguiente multiplicación, $(a_{1}+b_{1}) \cdot (c_{1}+d_{1})$, llamamos a la función  $k(a_{1}+b_{1}, c_{1}+d_{1})$.
+
+Como el $x_{2} = 74 + 65 = 139$ y el $y_{2} = 88 + 53 = 141$ son números tiene más de una cifra, no entramos en el caso base.
+
+Se calcula la mitad a partir del máximo de dígitos entre $x_{2}$ e $y_{2}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{2} &= max(len(x_{2}), len(y_{2}))\ //\ 2\\
+        &= max(len(139), len(141))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{2}$ e $y_{2}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{2} = \underbrace{13}_{a_{2}}\underbrace{9}_{b_{2}}&, y_{2} = \underbrace{14}_{c_{2}}\underbrace{1}_{d_{2}}\\
+        a_{2}= 13, b_{2} = 9&, c_{2} = 14, d_{2} = 1
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{2} \cdot c_{2}$, $b_{2} \cdot d_{2}$, y $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{2} \cdot c_{2}$ Llamando a $k(a_{2}, c_{2})$.
+
+Como el $x_{3} = 13$ y el $y_{3} = 14$ son números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(13), len(14))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{1}_{a_{3}}\underbrace{3}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{4}_{d_{3}}\\
+        a_{3} = 1, b_{3} = 3&, c_{3} = 1, d_{3} = 4
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4} = 1$ y el $y_{4} = 1$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 1 \cdot 1 = 1
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 3$ y el $y_{4} = 4$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 3 \cdot 4 = 12
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 1 + 3 = 4$ y el $y_{4} = 1 + 4 = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 4 \cdot 5 = 20
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 7
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    1 \cdot 10^{2} + 7 \cdot 10^{1} + 12 = 182
+\end{equation*}
+
+Ahora tenemos el resultado de $a_{2} \cdot c_{2}$, para seguir con la siguiente multiplicación, $b_{2} \cdot d_{2}$, llamamos a la función  $k(b_{2}, d_{2})$.
+
+Como el $x_{3} = 9$ y el $y_{3} = 1$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{3} \cdot y_{3} = 9 \cdot 1 = 9
+\end{equation*}
+
+y retornamos el valor, volviendo a la llamada anterior (subíndice $2$).
+
+Ahora tenemos el resultado de $b_{2} \cdot d_{2}$, para seguir con la siguiente multiplicación, $(a_{2}+b_{2}) \cdot (c_{2}+d_{2})$, llamamos a la función  $k(a_{2}+b_{2}, c_{2}+d_{2})$.
+
+Como el $x_{3} = 13 + 9 = 22$ y el $y_{3} = 14 + 1 = 15$ uno de los números tiene más de una cifra, no entramos en el caso base.
+Se calcula la mitad a partir del máximo de dígitos entre $x_{3}$ e $y_{3}$ dividido 2, en este caso ambos tienen 4 dígitos, luego la mitad es 2.
+
+\begin{equation*}
+    \begin{aligned}
+        mitad_{3} &= max(len(x_{3}), len(y_{3}))\ //\ 2\\
+        &= max(len(22), len(15))\ //\ 2\\
+        &= 1
+    \end{aligned}
+\end{equation*}
+
+Ahora partimos en dos a $x_{3}$ e $y_{3}$:
+
+\begin{equation*}
+    \begin{aligned}
+        x_{3} = \underbrace{2}_{a_{3}}\underbrace{2}_{b_{3}}&, y_{3} = \underbrace{1}_{c_{3}}\underbrace{5}_{d_{3}}\\
+        a_{3} = 2, b_{3} = 2&, c_{3} = 1, d_{3} = 5
+    \end{aligned}
+\end{equation*}
+
+Necesitamos calcular las siguientes multiplicaciones: $a_{3} \cdot c_{3}$, $b_{3} \cdot d_{3}$, y $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$. Para ello llamamos recursivamente a la funcion $k$, primero para $a_{3} \cdot c_{3}$ Llamando a $k(a_{3}, c_{3})$.
+
+Como el $x_{4}$ y el $y_{4}$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 2 \cdot 1 = 2
+\end{equation*}
+
+Retornamos el valor a la llamada anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $a_{3} \cdot c_{3}$, para seguir con la siguiente multiplicación, $b_{3} \cdot d_{3}$, llamamos a la función  $k(b_{3}, d_{3})$.
+
+Como el $x_{4} = 2$ y el $y_{4} = 5$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 2 \cdot 5 = 10
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Ahora tenemos el resultado de $b_{3} \cdot d_{3}$, para seguir con la siguiente multiplicación, $(a_{3}+b_{3}) \cdot (c_{3}+d_{3})$, llamamos a la función  $k(a_{3}+b_{3}, c_{3}+d_{3})$.
+
+Como el $x_{4} = 2 + 2 = 4$ y el $y_{4} = 1 + 5 = 6$ son números de una cifra, entramos en el caso base, ergo realizamos la multiplicación normal.
+
+\begin{equation*}
+    x_{4} \cdot y_{4} = 4 \cdot 6 = 24
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $3$).
+
+Al valor retornado de $k(a_{3}+b_{3}, c_{3}+d_{3})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{3} \cdot c_{3}$ y $b_{3} \cdot b_{3}$) para obtener $a_{3} \cdot d_{3} + b_{3} \cdot c_{3}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{3} \cdot d_{3} + b_{3} \cdot c_{3} &= (a_{3}+b_{3} \cdot c_{3}+d_{3}) - a_{3} \cdot c_{3} - b_{3} \cdot b_{3}\\
+        &= 12
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $2$) la multiplicación
+
+\begin{equation*}
+    a_{3} \cdot c_{3} \cdot 10^{(2 \cdot mitad_{3})} + ((a_{3} \cdot d_{3} + b_{3} \cdot c_{3}) \cdot 10^{mitad_{3}}) + b_{3} \cdot d_{3}
+\end{equation*}
+\begin{equation*}
+    2 \cdot 10^{2} + 12 \cdot 10^{1} + 10 = 330
+\end{equation*}
+
+Al valor retornado de $k(a_{2}+b_{2}, c_{2}+d_{2})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{2} \cdot c_{2}$ y $b_{2} \cdot b_{2}$) para obtener $a_{2} \cdot d_{2} + b_{2} \cdot c_{2}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{2} \cdot d_{2} + b_{2} \cdot c_{2} &= (a_{2}+b_{2} \cdot c_{2}+d_{2}) - a_{2} \cdot c_{2} - b_{2} \cdot b_{2}\\
+        &= 139
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}\\
+\end{equation*}
+\begin{equation*}
+    182 \cdot 10^{2} + 139 \cdot 10^{1} + 9 = 19599\\
+\end{equation*}
+
+Al valor retornado de $k(a_{1}+b_{1}, c_{1}+d_{1})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{1} \cdot c_{1}$ y $b_{1} \cdot b_{1}$) para obtener $a_{1} \cdot d_{1} + b_{1} \cdot c_{1}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{1} \cdot d_{1} + b_{1} \cdot c_{1} &= (a_{1}+b_{1} \cdot c_{1}+d_{1}) - a_{1} \cdot c_{1} - b_{1} \cdot b_{1}\\
+        &= 9642
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $0$) la multiplicación
+
+\begin{equation*}
+    a_{1} \cdot c_{1} \cdot 10^{(2 \cdot mitad_{1})} + ((a_{1} \cdot d_{1} + b_{1} \cdot c_{1}) \cdot 10^{mitad_{1}}) + b_{1} \cdot d_{1}
+\end{equation*}
+\begin{equation*}
+    6512 \cdot 10^{4} + 9642 \cdot 10^{2} + 3445 = 66087645
+\end{equation*}
+
+Al valor retornado de $k(a_{0}+b_{0}, c_{0}+d_{0})$ le restamos las multiplicaciones obtenidas anteriormente ($a_{0} \cdot c_{0}$ y $b_{0} \cdot b_{0}$) para obtener $a_{0} \cdot d_{0} + b_{0} \cdot c_{0}$
+
+\begin{equation*}
+    \begin{aligned}
+        a_{0} \cdot d_{0} + b_{0} \cdot c_{0} &= (a_{0}+b_{0} \cdot c_{0}+d_{0}) - a_{0} \cdot c_{0} - b_{0} \cdot b_{0}\\
+        &= 31424034
+    \end{aligned}
+\end{equation*}
+
+Retornamos al llamado anterior (subíndice $1$) la multiplicación
+
+\begin{equation*}
+    a_{0} \cdot c_{0} \cdot 10^{(2 \cdot mitad_{0})} + ((a_{0} \cdot d_{0} + b_{0} \cdot c_{0}) \cdot 10^{mitad_{0}}) + b_{0} \cdot d_{0}\\
+\end{equation*}
+\begin{equation*}
+    7702896 \cdot 10^{8} + 31424034 \cdot 10^{4} + 26960715 = 7.706038673 \times 10^{14}\\
+\end{equation*}

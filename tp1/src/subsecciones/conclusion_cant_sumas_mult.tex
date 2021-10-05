@@ -1,0 +1,43 @@
+\documentclass[../main.tex]{subfiles}
+
+Analizando la cantidad de sumas y multiplicaciones computadas en el algoritmo, se puede concluir que, en este caso, el multiplicando y el multiplicador no son lo suficientemente grandes como para que sea conveniente emplear éste algoritmo para realizar su multiplicación.
+A priori se puede decir que éste algoritmo es óptimo y eficiente (porque aún no se comparó con otro, más adelante en este trabajo lo compararemos con el método tradicional y concluiremos si sigue siendo eficiente o no).
+
+\subsubsection{Teorema maestro}
+
+\begin{equation*}
+    \boxed{T(n) = aT\left(\frac{n}{b}\right) + \mathcal{O}(n^c)}
+\end{equation*}
+\begin{equation*}
+    \begin{aligned}
+        &< & &\rightarrow T(n) = \mathcal{O}(n^{c})\\
+        Si: \log_{b}(a) \ &= &C &\rightarrow \mathcal{O}(n^{c} \log_{b}(n)) = \mathcal{O}((n^{c}\log(n))\\ 
+        &> & &\rightarrow \mathcal{O}(n^{\log_{b}(a)})\\
+    \end{aligned}
+\end{equation*}
+
+\subsubsection{Análisis de complejidad del algoritmo de Karatsuba con el teorema maestro}
+
+Ya que las sumas, las restas, y los desplazamientos de dígitos (multiplicaciones por potencias de la base) en el caso base del algoritmo de Karatsuba requieren tiempos proporcionales a $n$, su coste se hace insignificante a medida que crece $n$. Precisamente, si $T(n)$ denota el número total de operaciones elementales que el algoritmo realiza cuando se multiplican dos números de $n$ dígitos, entonces podemos escribir:
+
+\begin{equation*}
+    \begin{aligned}
+        a &= 3 \quad \because T\left(\frac{n}{2}\right) \text{ es llamada 3 veces en el algoritmo}\\
+        b &= 2 \quad \because \text{ se divide en 2 el arreglo inicial}\\
+        c &= 1 \quad \because \text{ calcular el resultado de la expresión es} \mathcal{O}(n)
+    \end{aligned}
+\end{equation*}
+
+Reemplazando en el Teorema Maestro:
+
+\begin{equation*}
+    T(n) = 3T\left(\frac{n}{2}\right) + \mathcal{O}(n)
+\end{equation*}
+
+luego $\log_{b}(a) = 1.584962501 > c = 1$ entonces obtenemos la cota superior asintótica:
+
+\begin{equation*}
+    \boxed{T(n) = \mathcal{O}(n^{\log_{b}(a)})  \approxeq \mathcal{O}(n^{1.58})}
+\end{equation*}
+
+Esto quiere decir que éste algoritmo es una mejor opción que el del método tradicional (teóricamente, pues $n^{1.58} < n^{2}$).

@@ -1,0 +1,27 @@
+\documentclass[../main.tex]{subfiles}
+
+Dada la siguiente relación de recurrencia
+
+\begin{equation*}
+    a \cdot T\left(\frac{n}{b}\right) + \mathcal{O}(c)
+\end{equation*}
+
+Con:
+
+\begin{equation*}
+    \begin{aligned}
+        a&: 1 + \text{(los dos dígitos del padrón de la izquierda mod 9)}&\\
+        b&: 2 + \text{(los dos dígitos del padrón de la izquierda mod 7)}&\\
+        c&: \text{“n” si su padrón es múltiplo de 4,}&\\
+         &   \text{sino “$n\log(n)$” si su padrón es múltiplo de 3,}&\\
+         &   \text{sino “n2”}&
+    \end{aligned}
+\end{equation*}
+
+Se pide:
+
+\begin{enumerate}
+    \item Responda y complete: ¿Qué le falta a la relación de recurrencia para que se pueda aplicar el teorema maestro?
+    \item Calcular la complejidad temporal utilizando el teorema maestro.
+    \item Explique paso a paso cómo llega a la misma.
+\end{enumerate}

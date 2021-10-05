@@ -1,0 +1,38 @@
+\documentclass[../main.tex]{subfiles}
+
+Dada los siguientes números (completada por su número de padrón)
+
+\begin{equation*}
+    \begin{aligned}
+        a35b411c\\
+        2d98ef55
+    \end{aligned}
+\end{equation*}
+
+con:
+\begin{align*}
+    &\text{a: dígito del padrón correspondiente a la unidad}\\
+    &\text{b: dígito del padrón correspondiente a la centena}\\
+    &\text{c: los dos dígitos del padrón de la izquierda mod 7}\\
+    &\text{d: dígito del padrón correspondiente a la decena}\\
+    &\text{e: dígito del padrón correspondiente a la unidad de mil}\\
+    &\text{f: los dos dígitos del padrón de la derecha mod 9}\\
+\end{align*}
+
+Ejemplo. Padrón: 95473
+
+\begin{equation*}
+    \begin{aligned}
+        33544114\\
+        27985155
+    \end{aligned}
+\end{equation*}
+
+Se pide:
+
+\begin{enumerate}
+    \item Resuelva la multiplicación paso a paso utilizando el algoritmo de Karatsuba.
+    \item Cuente la cantidad de sumas y multiplicaciones que realiza y relaciónelo con la complejidad temporal del método.
+    \item Comparar lo obtenido con el método de multiplicación tradicional. ¿Observa alguna mejora? Analice.
+    \item ¿Por qué se puede considerar al algorítmo de Karatsuba como de "división y conquista"?
+\end{enumerate}

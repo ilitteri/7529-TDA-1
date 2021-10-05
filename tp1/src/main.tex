@@ -1,0 +1,190 @@
+\documentclass[hidelinks]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{booktabs}
+\usepackage{blindtext}
+\usepackage{imakeidx}
+\usepackage{tikz} % Graphs
+\usepackage{subcaption}
+\usepackage{subfiles} % Best loaded last in the preamble
+\usepackage{lscape} 
+% \usepackage{graphicx} % Required for including pictures
+% \usepackage[figurename=Figure]{caption}
+\usepackage{float}    % For tables and other floats
+\usepackage{verbatim} % For comments and other
+\usepackage{amsmath}  % For math
+\usepackage{amssymb}  % For more math
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{fullpage} % Set margins and place page numbers at bottom center
+% %\usepackage{paralist} % paragraph spacing
+\usepackage{listings} % For source code
+% \usepackage{subfig}   % For subfigures
+% %\usepackage{physics}  % for simplified dv, and 
+\usepackage{enumitem} % useful for itemization
+% \usepackage{siunitx}  % standardization of si units
+
+\usepackage{tikz,bm} % Useful for drawing plots
+\usepackage{tikz-3dplot}
+\usepackage{circuitikz}
+\usepackage{dsfont}
+\usepackage{hyperref}
+% \usepackage[T1]{fontenc}
+% \usepackage{multirow}
+\usepackage{graphicx,mathtools}
+
+\usetikzlibrary{trees}
+\usepackage{tkz-euclide}
+\usepackage{pgfplots}
+\usepackage{forest}
+\usepackage{array}
+\usepackage{siunitx}
+\usepackage{supertabular}
+\usepackage{lipsum}
+\usepackage{hhline}
+
+\makeatletter
+\tikzset{arrow coord style/.style={%
+    densely dashed,
+    \tkz@euc@linecolor,
+    %>=stealth',
+    %->,
+    }}
+    \tikzset{xcoord style/.style={%
+    \tkz@euc@labelcolor,
+    font=\normalsize,text height=1ex,
+    inner sep = 0pt,
+    outer sep = 0pt,
+    fill=\tkz@fillcolor,
+    below=6pt
+    }} 
+\tikzset{ycoord style/.style={%
+    \tkz@euc@labelcolor,
+    font=\normalsize,text height=1ex, 
+    inner sep = 0pt,
+    outer sep = 0pt, 
+    fill=\tkz@fillcolor,
+    left=6pt
+    }}  
+\makeatother
+
+
+%%% Colours used in field vectors and propagation direction
+\definecolor{mycolor}{rgb}{1,0.2,0.3}
+\definecolor{brightgreen}{rgb}{0.4, 1.0, 0.0}
+\definecolor{britishracinggreen}{rgb}{0.0, 0.26, 0.15}
+\definecolor{cadmiumgreen}{rgb}{0.0, 0.42, 0.24}
+\definecolor{ceruleanblue}{rgb}{0.16, 0.32, 0.75}
+\definecolor{darkelectricblue}{rgb}{0.33, 0.41, 0.47}
+\definecolor{darkpowderblue}{rgb}{0.0, 0.2, 0.6}
+\definecolor{darktangerine}{rgb}{1.0, 0.66, 0.07}
+\definecolor{emerald}{rgb}{0.31, 0.78, 0.47}
+\definecolor{palatinatepurple}{rgb}{0.41, 0.16, 0.38}
+\definecolor{pastelviolet}{rgb}{0.8, 0.6, 0.79}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Para colores en el código
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+% Para tíldes en el código
+\lstset{
+     literate=%
+         {á}{{\'a}}1
+         {í}{{\'i}}1
+         {é}{{\'e}}1
+         {ý}{{\'y}}1
+         {ú}{{\'u}}1
+         {ó}{{\'o}}1
+         {ě}{{\v{e}}}1
+         {š}{{\v{s}}}1
+         {č}{{\v{c}}}1
+         {ř}{{\v{r}}}1
+         {ž}{{\v{z}}}1
+         {ď}{{\v{d}}}1
+         {ť}{{\v{t}}}1
+         {ň}{{\v{n}}}1                
+         {ů}{{\r{u}}}1
+         {Á}{{\'A}}1
+         {Í}{{\'I}}1
+         {É}{{\'E}}1
+         {Ý}{{\'Y}}1
+         {Ú}{{\'U}}1
+         {Ó}{{\'O}}1
+         {Ě}{{\v{E}}}1
+         {Š}{{\v{S}}}1
+         {Č}{{\v{C}}}1
+         {Ř}{{\v{R}}}1
+         {Ž}{{\v{Z}}}1
+         {Ď}{{\v{D}}}1
+         {Ť}{{\v{T}}}1
+         {Ň}{{\v{N}}}1                
+         {Ů}{{\r{U}}}1    
+}
+
+\makeindex[columns=3, title=Alphabetical Index, intoc]
+% \addto\captionsenglish{
+\renewcommand*\contentsname{Índice}
+% }
+
+\title{Notas de Probabilidad y Estadística}
+\author{\href{https://github.com/ilitteri}{Ivan Litteri}}
+\date{}
+
+% Para sacar el título "Capítulo n"
+% \usepackage[pagestyles]{titlesec}
+% \titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
+% \newpagestyle{mystyle}
+% {\sethead[\thepage][][\chaptertitle]{}{}{\thepage}}
+% \pagestyle{mystyle}
+
+\begin{document}
+% \maketitle
+	
+\begin{figure}
+	\centering
+	\includegraphics{../assets/banner_fiuba.pdf}
+\end{figure}
+
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large Trabajo Práctico N°1}}
+\end{center}
+{\textbf{Nombre:}\ Iván Litteri \hspace{\fill} \textbf{Fecha de Entraga:} 29/09/2021   \\
+{ \textbf{Padrón:}} \ 106223 \hspace{\fill} \textbf{Grupo:} - \\
+	\hrule
+
+\tableofcontents
+\clearpage
+
+\chapter{Karatsuba!}
+\subfile{capitulos/parte_1.tex}
+\clearpage
+
+\chapter{Cuestión de complejidad...}
+\subfile{capitulos/parte_2.tex}
+\clearpage
+
+\end{document}

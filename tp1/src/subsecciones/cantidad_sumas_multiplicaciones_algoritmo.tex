@@ -1,0 +1,45 @@
+\documentclass[../main.tex]{subfiles}
+
+Para contar la cantidad de sumas y multiplicaciones, me baso en la premisa de que, el número de sumas y multiplicaciones en el caso base es de 0 y 1 respectivamente, y de que el número de sumas y multiplicaciones que se realizan si no se entra en el caso base es de 6 y 2 respectivamente (se realizan 6 sumas para obtener $(a_{i}d_{i} + b_{i}c{i}$ porque se obtiene de hacer $k(a_{i}+b_{i}, c_{i}+d_{i}) - a_{i}c{i} - b_{i}d_{i}$) y por lo tanto, ayudándome con el árbol de recursión concluyo:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| l | c | c | c |}
+        \hline
+        & Hoja & Padre & Raíz\\
+        \hline
+        Multiplicaciones & 1 & 2 & 2\\
+        \hline
+        Sumas & 0 & 6 & 6\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Cantidad de sumas y multiplicaciones según los distintos componentes del árbol de recursión}}
+\end{table}
+
+Luego, contando la cantidad de los distintos componentes que hay en el árbol de recursión concluyo:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c |}
+        \hline
+        Hojas & Padres & Raíz\\
+        \hline
+        49 & 22 & 1\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Cantidad de componentes en el árbol de recursión}}
+\end{table}
+
+Usando los datos de la tabla 1.1 y la tabla 1.2, se puede decir que:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c |}
+        \hline
+        Sumas & Multiplicaciones\\
+        \hline
+        138 & 95\\
+        \hline
+    \end{tabular}
+    \caption{\textit{Cantidad de sumas y multiplicaciones totales realizadas con el algoritmo}}
+\end{table}

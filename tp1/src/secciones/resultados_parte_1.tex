@@ -1,0 +1,61 @@
+\documentclass[../main.tex]{subfiles}
+
+\subsection{Preliminar}
+
+Dada los siguientes números (completada por su número de padrón)
+
+\begin{equation*}
+    \begin{aligned}
+        a35b411c\\
+        2d98ef55
+    \end{aligned}
+\end{equation*}
+
+con:
+\begin{align*}
+    &\text{a: dígito del padrón correspondiente a la unidad}\\
+    &\text{b: dígito del padrón correspondiente a la centena}\\
+    &\text{c: los dos dígitos del padrón de la izquierda mod 7}\\
+    &\text{d: dígito del padrón correspondiente a la decena}\\
+    &\text{e: dígito del padrón correspondiente a la unidad de mil}\\
+    &\text{f: los dos dígitos del padrón de la derecha mod 9}\\
+\end{align*}
+
+Con mi padrón: 106223, las letras serían
+
+\begin{align*}
+    a &= 3\\
+    b &= 2\\
+    c &= 10 \bmod 7 = 3\\
+    d &= 2\\
+    e &= 6\\
+    f &= 23 \bmod 9 = 5
+\end{align*}
+
+Luego reemplazando los valores de las letras en los números:\
+
+\begin{equation*}
+    \begin{aligned}
+        33524113\\
+        22986555
+    \end{aligned}
+\end{equation*}
+
+% \subsubsection*{Algoritmo de Karatsuba}
+
+% Éste algoritmo es un algoritmo de división y conquista. En resúmen, se parte en dos los números a multiplicar recursivamente, realiza las operaciones requeridas, luego une los resultados para obtener el resultado de la multiplicación. 
+
+\subsection{Multiplicación usando el algoritmo}
+\subfile{../subsecciones/paso_a_paso.tex}
+
+\subsection{Árbol de recursión}
+\subfile{../subsecciones/arbol_de_recursion.tex}
+
+\subsection{Cantidad de sumas y multiplicaciones computadas con el algoritmo}
+\subfile{../subsecciones/cantidad_sumas_multiplicaciones_algoritmo.tex}
+
+\subsection{Multiplicación usando el método tradicional}
+\subfile{../subsecciones/metodo_tradicional.tex}
+
+\subsection{Cantidad de sumas y multiplicaciones computadas con el método tradicional}
+\subfile{../subsecciones/cantidad_sumas_multiplicaciones_tradicional.tex}

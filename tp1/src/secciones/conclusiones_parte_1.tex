@@ -1,0 +1,19 @@
+\documentclass[../main.tex]{subfiles}
+
+\subsection{Cantidad de sumas y multiplicaciones computadas con el algoritmo y relación con la complejidad temporal}
+\subfile{../subsecciones/conclusion_cant_sumas_mult.tex}
+
+\subsection{Comparación de método tradicional y algoritmo}
+\subfile{../subsecciones/conclusion_comp_algoritmo_tradicional.tex}
+
+\subsection{¿Por qué el algoritmo de Karatsuba es de división y conquista?}
+
+El algoritmo de Karatsuba se puede decir que es de división y conquista porque, un algoritmo de éste tipo separa un problema en subproblemas que se parecen al problema original, de manera recursiva resuelve los subproblemas y, por último, combina las soluciones de los subproblemas para resolver el problema original. Como divide y vencerás resuelve subproblemas de manera recursiva, cada subproblema debe ser más pequeño que el problema original, y debe haber un caso base para los subproblemas. Debes pensar que los algoritmos de divide y vencerás tienen tres partes:
+
+\begin{enumerate}
+    \item Divide: el problema en un número de subproblemas que son instancias más pequeñas del mismo problema.
+    \item Vence: los subproblemas al resolverlos de manera recursiva. Si son los suficientemente pequeños, resuelve los subproblemas como casos base.
+    \item Combina: las soluciones de los subproblemas en la solución para el problema original.
+\end{enumerate}
+
+Y este algortimo divide los números a multiplicar en 2, y así recursivamente hasta que se llega a un número muy pequeño (una cifra específicamnete), en el cual se resuelve el problema. Y luego se van combinando los resultados de los subproblemas para resolver el problema original.
