@@ -1,0 +1,29 @@
+\documentclass[../main.tex]{subfiles}
+
+Una empresa productora de tecnología está planeando construir una fábrica para un producto nuevo. Un aspecto clave en esa decisión corresponde a determinar dónde la ubicarán para minimizar los gastos de logística y distribución. Cuenta con N depósitos distribuidos en diferentes ciudades. En alguna de estas ciudades es donde deberá instalar la nueva fábrica. Para los transportes utilizarán las rutas semanales con las que ya cuentan. Cada ruta une de ida y vuelta dos depósitos. No todos los depósitos tienen rutas que los conecten. Por otro lado, los costos de utilizar una ruta tienen diferentes valores. Por ejemplo hay rutas que requieren contratar más personal o comprar nuevos vehículos. En otros casos son rutas subvencionadas y utilizarlas les da una ganancia a la empresa. Otros factores que influyen son  gastos de combustibles y peajes. Para simplificar se ha desarrollado una tabla donde se indica para cada ruta existente el costo de utilizarla (valor negativo si da ganancia).
+
+Los han contratado para resolver este problema.
+
+Han averiguado que se puede resolver el problema utilizando Bellman-Ford para cada par de nodos o Floyd-Warshall en forma general. Un amigo les sugiere utilizar el algoritmo de Johnson.
+
+Se pide:
+
+\begin{enumerate}
+    \item Investigar el algoritmo de Johnson y explicar cómo funciona. ¿Es óptimo?
+    \item En una tabla comparar la complejidad temporal y espacial de las tres propuestas. 
+    \item Analizar en qué situaciones una solución es mejor que otras
+    \item Crear un ejemplo con 5 depósitos y mostrar paso a paso cómo lo resolvería el algoritmo de Johnson.
+    \item ¿Puede decirse que Johnson utiliza en su funcionamiento una metodología greedy? Justifique
+    \item ¿Puede decirse que Johnson utiliza en su funcionamiento una metodología de programación dinámica? Justifique.
+    \item Programar la solución usando el algoritmo de Johnson.
+\end{enumerate}
+
+\subsection*{Fromato de los archivos:}
+
+El programa debe recibir por parámetro el path del archivo donde se encuentran los costos entre cada depósito. El archivo debe ser de tipo texto y presentar por renglón, separados por coma un par de depósitos con su distancia.
+
+Ejemplo: "depósitos.txt"
+
+% Agregar código
+
+Debe resolver el problema y retornar por pantalla la solución. Debe mostrar por consola en en que ciudad colocar el depósito. Además imprimir en forma de matriz los costos mínimos entre cada uno de los depósitos.
