@@ -420,3 +420,5 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+tp3/
