@@ -3,8 +3,176 @@
 \section{Objetivos}
 \subfile{../secciones/objetivos_parte_1.tex}
 
-\section{Resultados}
-\subfile{../secciones/resultados_parte_1.tex}
+\subsection{Algoritmo de Johnson}
 
-\section{Conclusiones}
-\subfile{../secciones/conclusiones_parte_1.tex}
+\subsubsection{¿Cómo funciona?}
+El algoritmo de Johnson consiste en los siguientes pasos:
+
+\begin{enumerate}
+    \item Primero se añade un nuevo nodo $q$ al grafo, conectado a cada uno de los nodos del grafo por una arista de peso cero.
+    \item En segundo lugar, se utiliza el algoritmo de Bellman-Ford, empezando por el nuevo vértice $q$, para determinar para cada vértice $v$ el peso mínimo $h(v)$ del camino de $q$ a $v$. Si en este paso se detecta un ciclo negativo, el algoritmo concluye.
+    \item Seguidamente, a las aristas del grafo original se les cambia el peso usando los valores calculados por el algoritmo de Bellman-Ford: una arista de $u$ a $v$ con tamaño $w(u, v)$, da el nuevo tamaño $w(u, v) + h(u) – h(v)$
+    \item Por último, para cada nodo $s$ se usa el algoritmo de Dijkstra para determinar el camino más corto entre $s$ y los otros nodos, usando el grafo con pesos modificados. 
+\end{enumerate}
+
+\subsubsection{¿Es óptimo?}
+
+Cuando analizamos algoritmos lo que nos interesa de ellos es analizar su optimalidad y su eficiencia. La optimalidad nos dice si, al utilizar un algoritmo en específico para resolver un problema, siempre obtengo el resultado correcto; y por otro lado la eficiencia (tanto en tiempo y espacio) tiene que ver con la cantidad de operaciones que se realizan para resolver el problema.
+
+Para el problema que nos interesa resolver, este algoritmo sí es óptimo ya que se nos aclara que los grafos de nuestro problema no poseen ciclos negativos. Sin esa aclaración, se podría decir que el algoritmo no es óptimo ya que no devuelve el resultado correcto con grafos que contienen ciclos negativos.
+
+\subsection{Comparación de complejidad temporal y espacial entre los algoritmos propuestos}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Complejidad & Bellman-Ford & Johnson & Floyd-Warshall\\
+        \hline
+        Temporal & $\mathcal{O}(VE)$ & $\mathcal{O}(V^{2}\log{V} + VE)$ & $\mathcal{O}(V^{3})$\\
+        \hline
+        Espacial & $\mathcal{O}(VE)$ & $\mathcal{O}((V+1)(E+V))$ & $\mathcal{O}()$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Comparación entre situaciones}
+
+Johnson es mejor para grafos discretos y Floyd-Warshall para grafos densos porque la complejidad de éste depende sólo de la cantidad de vértices ($|V|$).
+
+\subsection{Ejemplo}
+
+INSERTAR GRAFO ORIGINAL ACÁ
+
+\subsubsection{Paso 1. Se añade un nuevo vértice $q$ al grafo, conectado a cada uno de los vértices del grafo por una arista de peso cero}
+
+INSERTAR GRAFO CON NUEVO VÉRTICE ACÁ
+
+\subsubsection{Paso 2. Se utiliza el algoritmo de Bellman-Ford, empezando por el nuevo vértice $q$, para determinar para cada vértice $v$ el peso mínimo $h(v)$ del camino de $q$ a $v$. Si en este paso se detecta un ciclo negativo, el algoritmo concluye}
+
+% Tabla para Bellman-Ford
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c | c |}
+        \hline
+         & $q$ & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        0 &  &  &  &  &  &  \\
+        \hline
+        1 &  &  &  &  &  &  \\
+        \hline
+        2 &  &  &  &  &  &  \\
+        \hline
+        3 &  &  &  &  &  &  \\
+        \hline
+        4 &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c |}
+        \hline
+         & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        $v_{0}$ &  &  &  &  &  \\
+        \hline
+        $v_{1}$ &  &  &  &  &  \\
+        \hline
+        $v_{2}$ &  &  &  &  &  \\
+        \hline
+        $v_{3}$ &  &  &  &  &  \\
+        \hline
+        $v_{4}$ &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c |}
+        \hline
+         & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        $v_{0}$ &  &  &  &  &  \\
+        \hline
+        $v_{1}$ &  &  &  &  &  \\
+        \hline
+        $v_{2}$ &  &  &  &  &  \\
+        \hline
+        $v_{3}$ &  &  &  &  &  \\
+        \hline
+        $v_{4}$ &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c |}
+        \hline
+         & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        $v_{0}$ &  &  &  &  &  \\
+        \hline
+        $v_{1}$ &  &  &  &  &  \\
+        \hline
+        $v_{2}$ &  &  &  &  &  \\
+        \hline
+        $v_{3}$ &  &  &  &  &  \\
+        \hline
+        $v_{4}$ &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c |}
+        \hline
+         & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        $v_{0}$ &  &  &  &  &  \\
+        \hline
+        $v_{1}$ &  &  &  &  &  \\
+        \hline
+        $v_{2}$ &  &  &  &  &  \\
+        \hline
+        $v_{3}$ &  &  &  &  &  \\
+        \hline
+        $v_{4}$ &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c |}
+        \hline
+         & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$\\
+        \hline
+        $v_{0}$ &  &  &  &  &  \\
+        \hline
+        $v_{1}$ &  &  &  &  &  \\
+        \hline
+        $v_{2}$ &  &  &  &  &  \\
+        \hline
+        $v_{3}$ &  &  &  &  &  \\
+        \hline
+        $v_{4}$ &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+
+
+\subsection{¿Puede decirse que Johnson utiliza en su funcionamiento una metodología greedy?}
+
+Se podría decir que una parte de su funcionamiento utiliza una metodología greedy ya que este algoritmo usa el algoritmo de Dijkstra y éste utiliza en su funcionamiento una metodología Greedy, porque siempre elije el vértice 'más liviano' o 'más cercano' en $V-S$ para agregar al conjunto $S$ (siendo $S$ el conjunto de los vértices cuyos pesos finales de la fuente $s$ ya se han determinado). Decimos 'una parte' porque además el algoritmo de Johnson en una parte de su funcionamiento utiliza el algoritmo de Bellman-Ford (que no utiliza en su funcionamiento una metodología greedy).
+
+
+\subsection{¿Puede decirse que Johnson utiliza en su funcionamiento una metodología de programación dinámica?}
+
+Se podría decir que una parte de su funcionamiento utiliza una metodología de programación dinámica ya que este algoritmo (como se dijo en el punto anterior) usa el algoritmo de Bellman-Ford. Decimos 'una parte' porque además el algoritmo de Johnson en una parte de su funcionamiento utiliza el algoritmo de Bellman-Ford (que no utiliza en su funcionamiento una metodología greedy).
