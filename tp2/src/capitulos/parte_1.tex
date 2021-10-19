@@ -5,15 +5,28 @@
 
 \subsection{Algoritmo de Johnson}
 
+El algoritmo de Johnson es un algoritmo cuya finalidad es hallar el camino más corto entre todos los pares de vértices de un grafo dirigido disperso. Permite que las aristas tengan pesos negativos, pero no que los ciclos tengan peso negativo.
+
+Se basa en dos algoritmos:
+el algoritmo de Bellman-Ford, el cual realiza una transformación en el grafo inicial, eliminando todas las aristas de peso negativo.
+el algoritmo de Dijkstra, usandolo en el grafo resultante de utilizar el algoritmo anterior.
+
 \subsubsection{¿Cómo funciona?}
-El algoritmo de Johnson consiste en los siguientes pasos:
+
+Para aplicar el algoritmo, se siguen los siguientes pasos:
 
 \begin{enumerate}
-    \item Primero se añade un nuevo nodo $q$ al grafo, conectado a cada uno de los nodos del grafo por una arista de peso cero.
-    \item En segundo lugar, se utiliza el algoritmo de Bellman-Ford, empezando por el nuevo vértice $q$, para determinar para cada vértice $v$ el peso mínimo $h(v)$ del camino de $q$ a $v$. Si en este paso se detecta un ciclo negativo, el algoritmo concluye.
-    \item Seguidamente, a las aristas del grafo original se les cambia el peso usando los valores calculados por el algoritmo de Bellman-Ford: una arista de $u$ a $v$ con tamaño $w(u, v)$, da el nuevo tamaño $w(u, v) + h(u) – h(v)$
-    \item Por último, para cada nodo $s$ se usa el algoritmo de Dijkstra para determinar el camino más corto entre $s$ y los otros nodos, usando el grafo con pesos modificados. 
+    \item Se agrega un nodo $q$ al grafo, el cual está conectado a cada uno de los nodos del grafo por una arista de peso cero.
+    \item Se utiliza el algoritmo de Bellman-Ford, empezando por el nuevo vértice $q$, para determinar para cada vértice $v$ el peso mínimo $h(v)$ del camino de $q$ a $v$.
+    → Si en este paso se detecta un ciclo negativo, el algoritmo concluye.
+    \item Se actualiza el peso de las aristas del grafo, usando lo calculado anteriormente: una arista de $u$ a $v$ con tamaño $w(u, v)$, da el nuevo tamaño $w(u, v) + h(u) – h(v)$
+    \item Para cada nodo s se usa el algoritmo de Dijkstra para determinar el camino más corto entre s y los otros nodos, usando el grafo actualizado anteriormente.
 \end{enumerate}
+
+Como todas las aristas tienen ahora un peso actualizado con el mismo agregado de  h(u) – h(v), nos aseguramos de que el camino más corto en el grafo original lo sea también en el grafo actualizado. 
+
+También, debido al modo en el que computamos los valores h(v), nos aseguramos de que todos los pesos de las aristas son no negativos.
+Esto último aporta la optimalidad de los caminos encontrados por Dijkstra.
 
 \subsubsection{¿Es óptimo?}
 
@@ -69,6 +82,10 @@ INSERTAR GRAFO CON NUEVO VÉRTICE ACÁ
         \hline
     \end{tabular}
 \end{table}
+
+\subsubsection{Paso 3. }
+
+\subsubsection{Paso 4. Para cada nodo $s$ se usa el algoritmo de Dijkstra para determinar el camino más corto entre $s$ y los otros nodos, usando el grafo actualizado anteriormente.}
 
 \begin{table}[H]
     \centering
