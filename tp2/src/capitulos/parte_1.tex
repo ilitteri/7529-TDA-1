@@ -7,61 +7,91 @@
 
 El algoritmo de Johnson es un algoritmo cuya finalidad es hallar el camino más corto entre todos los pares de vértices de un grafo dirigido disperso. Permite que las aristas tengan pesos negativos, pero no que los ciclos tengan peso negativo.
 
+
 Se basa en dos algoritmos:
+
 \begin{itemize}
-    \item el algoritmo de Bellman-Ford, el cual realiza una transformación en el grafo inicial, eliminando todas las aristas de peso negativo, y detectando todos los ciclos negativos;
-    \item el algoritmo de Dijkstra, usandolo en el grafo resultante de utilizar el algoritmo anterior.
+    \item El algoritmo de Bellman-Ford, el cual realiza una transformación en el grafo inicial, eliminando todas las aristas de peso negativo, y detectando todos los ciclos negativos;
+
+    \item El algoritmo de Dijkstra, usandolo en el grafo resultante de utilizar el algoritmo anterior.
 \end{itemize}
+
 
 \subsubsection{¿Cómo funciona?}
 
+
 Para aplicar el algoritmo, se siguen los siguientes pasos:
+
 
 \begin{enumerate}
     \item Se agrega un nodo $q$ al grafo, el cual está conectado a cada uno de los nodos del grafo por una arista de peso cero.
+
     \item Se utiliza el algoritmo de Bellman-Ford, empezando por el nuevo vértice $q$, para determinar para cada vértice $v$ el peso mínimo $h(v)$ del camino de $q$ a $v$.
+
     → Si en este paso se detecta un ciclo negativo, el algoritmo concluye.
+
     \item Se actualiza el peso de las aristas del grafo, usando lo calculado anteriormente: una arista de $u$ a $v$ con tamaño $w(u, v)$, da el nuevo tamaño $w(u, v) + h(u) – h(v)$
+
     \item Para cada nodo s se usa el algoritmo de Dijkstra para determinar el camino más corto entre s y los otros nodos, usando el grafo actualizado anteriormente.
 \end{enumerate}
 
+
 Como todas las aristas tienen ahora un peso actualizado con el mismo agregado de $h(u) – h(v)$, se asegura de que el camino más corto en el grafo original lo sea también en el grafo actualizado. 
+
 
 También, debido al modo en el que se computan los valores $h(v)$, se asegura de que todos los pesos de las aristas son no negativos.
 
+
 \subsubsection{¿Es óptimo?}
+
 
 Cuando analizamos algoritmos lo que nos interesa de ellos es analizar su optimalidad y su eficiencia. La optimalidad nos dice si, al utilizar un algoritmo en específico para resolver un problema, siempre obtengo el resultado correcto; y por otro lado la eficiencia (tanto en tiempo y espacio) tiene que ver con la cantidad de operaciones que se realizan para resolver el problema.
 
+
 Para el problema que nos interesa resolver, este algoritmo sí es óptimo ya que se nos aclara que los grafos de nuestro problema no poseen ciclos negativos. Sin esa aclaración, se podría decir que el algoritmo no es óptimo ya que no devuelve el resultado correcto con grafos que contienen ciclos negativos.
+
 
 Además, al lograr que los pesos de las aristas no sean negativas, aseguramos la optimalidad de los caminos encontrados por Dijkstra, y por ende, de Johnson.
 
+
 \subsection{Comparación de complejidad temporal y espacial entre los algoritmos propuestos}
+
 
 Los algoritmos propuestos para resolver el problema en cuestión son:
 
+
 \begin{itemize}
     \item El algoritmo de Bellman Ford.
+
     \item El algoritmo de Floyd Warshall.
+
     \item El algoritmo de Johnson.
 \end{itemize}
 
+
 Se procede entonces a medir el uso de recursos de estos algoritmos.
+
 
 Al medir el uso de recursos de un algoritmo, uno lo puede hacer, entre otras formas, mediante su complejidad temporal, es decir, cuánto demora el algoritmo en terminar su ejecución dada una entrada $v$, y su complejidad espacial, midiendo el uso de memoria operativa requerida por el algoritmo (tanto el código como los datos con los que éste opera).
 
+
 Se analizan las complejidades temporales y espaciales de los algoritmos propuestos.
+
 
 \subsubsection{Bellman-Ford}
 
+
 El algoritmo de Bellman-Ford es un algoritmo para encontrar el camino más corto en un grafo dirigido ponderado. Normalmente se utiliza cuando hay aristas con peso negativo.
+
 
 Si el grafo contiene un ciclo de coste negativo, el algoritmo lo detectará, pero no encontrará el camino más corto que no repite ningún vértice. 
 
+
 El algoritmo consiste en hacer varias veces lo siguiente: recorrer todas las aristas. Si la arista (u, v) de longitud L es tal que la distancia que teníamos guardada desde el origen (s) hasta el nodo u más la longitud de la arista L, es menor a la distancia que teníamos guardada hasta el nodo v, actualizamos la información de la distancia hasta el nodo v como la suma mencionada.
 
+
 Si el grafo tiene V nodos, entonces, alcanza con recorrer sus aristas V-1 veces. Por ende, la complejidad temporal del algoritmo es
+
 \begin{center}
     $\mathcal{O}(V.E)$
 \end{center}
@@ -69,7 +99,9 @@ Si el grafo tiene V nodos, entonces, alcanza con recorrer sus aristas V-1 veces.
 con	V: vertices		E: aristas.
 \end{flushright}
 
+
 Al implementar el algoritmo, se utiliza una matriz que dependerá de la cantidad de vértices que tenga el grafo, por lo que entonces la complejidad espacial del mismo será de
+
 \begin{center}
     $\mathcal{O}(V)$
 \end{center}
@@ -77,19 +109,25 @@ Al implementar el algoritmo, se utiliza una matriz que dependerá de la cantidad
 con	V: vertices.
 \end{flushright}
 
+
 \subsubsection{Floyd-Warshall}
+
 
 El algoritmo de Floyd-Warshall es un algoritmo de análisis sobre grafos para encontrar el camino mínimo en grafos dirigidos ponderados. El algoritmo encuentra el camino entre todos los pares de vértices en una única ejecución. Este algoritmo es un claro ejemplo de programación dinámica, ya que desglosa el problema en subproblemas más pequeños, luego combina las respuestas a esos subproblemas para resolver el gran problema inicial.
 
+
 Este algoritmo compara todas las rutas posibles a través del gráfico entre cada par de vértices. Es capaz de hacer esto con solo $V^{3}$ comparaciones. Esto es notable considerando que puede haber hasta $V^{2}$ aristas en el gráfico y se prueba cada combinación de aristas. Lo hace mejorando gradualmente una estimación en la ruta más corta entre dos vértices, hasta que se sabe que la estimación es óptima.
 
+
 Una forma de representar el algoritmo es mediante una matriz cuadrada de V x V, dando lugar a una complejidad espacial de
+
 \begin{center}
     $\mathcal{O}(V^{2})$
 \end{center}
 \begin{flushright}
 con	V: vertices.
 \end{flushright}
+
 
 Es debido a todo lo anteriormente mencionado que su complejidad temporal es de
 \begin{center}
@@ -100,26 +138,36 @@ con	V: vertices,
 \end{flushright}
 dependiendo completamente del número de vértices del gráfico.
 
+
 Como se verá más adelante, esto lo hace especialmente útil para un cierto tipo de gráfico y no tanto para otros tipos.
+
 
 \subsubsection{Johnson}
 
+
 Como se dijo previamente, Johnson está comprendido por dos algoritmos, cuyas complejidades ya conocemos. Se procede a analizar entonces cada uno de los pasos.
+
 
 \begin{itemize}
     \item el primer paso del algoritmo es simple: consiste en añadir un vértice, con una arista por cada vértice existente. Por ende, al complejidad es de $\mathcal{O}(V)$
+
     \item el segundo y tercer paso se ejecutan con la complejidad del algoritmo Bellman-Ford, es decir, $\mathcal{O}(V E)$.
+
     \item el paso final se ejecuta con la complejidad del algoritmo de Dijkstra, el cual es implementado por cada vértice del grafo. Si se decide implementar el algoritmo de Dijkstra por montículos de Fibonacci, entonces por cada iteración, se requiere de $\mathcal{O}(V\log{V} + E)$ tiempo para completar para una complejidad total de
+
     \begin{center}
         $\mathcal{O}(V^{2}\log{V} + VE)$
     \end{center}
     \begin{flushright}
         con	V: vertices		E: aristas.
     \end{flushright}
+
 \end{itemize}
+
 
 Ahora, se analiza su complejidad espacial.
 *falta*
+
 
 \begin{table}[H]
     \centering
@@ -138,23 +186,34 @@ Ahora, se analiza su complejidad espacial.
 
 Con base en lo analizado anteriormente, concluímos que:
 
+
 El algoritmo Bellman-Ford es un algoritmo que calcula las rutas más cortas desde un único vértice de origen a todos los demás vértices en un dígrafo ponderado, detectando los ciclos negativos.
 
+
 El algoritmo Floyd-Warshall calcula las rutas más cortas de cada nodo a todos los demás. Se utiliza cuando cualquiera de todos los nodos puede ser una fuente, por lo que desea que la distancia más corta para llegar a cualquier nodo de destino desde cualquier nodo de origen. Esto solo falla cuando hay ciclos negativos.
+
 Su complejidad temporal depende solamente de los vertices del grafo.
 
+
 El algoritmo de Johnson calcula las rutas más cortas de cada nodo a todos los demás. 
+
 Su complejidad temporal depende tanto de los vertices como de la cantidad de aristas del grafo.
+
 
 Entonces, se pueden dividir los algoritmos sugeridos en dos grupos: los algoritmos para calcular las rutas más cortas de una sola fuente (single-source), y los algoritmos para calcular las rutas más cortas de todos los pares (all-pairs).
 
+
 En el primer grupo se encuentra el algoritmo de Bellman-Ford, mientras que en el segundo grupo están los algoritmos de Floyd-Warshall y Johnson.
+
 
 Ahora bien, se comparan los algoritmos correspondientes al segundo grupo: 
 
+
 Si se mira la complejidad, como se menciona anteriormente, la complejidad temporal de Floyd Warshall depende totalmente de la cantidad de vértices del grafo, mientras que la Johnson depende tanto de la cantidad de aristas como la de vértices.
 
+
 Es por esto que Floyd-Warshall es más efectivo para gráficos densos (muchos vértices), mientras que el algoritmo de Johnson es más efectivo para gráficos dispersos (pocos vértices).
+
 
 \subsection{Ejemplo}
 
