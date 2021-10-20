@@ -3,7 +3,7 @@ from grafo import Grafo
 from algoritmos import bellman_ford, dijkstra, johnson
 
 def test01_archivo_sin_depositos_ni_rutas_genera_un_grafo_vacio():
-    ruta_grafo = 'depositos_vacios.txt'
+    ruta_grafo = 'tests/depositos_vacios.txt'
 
     grafo = Grafo.desde_txt(ruta_grafo, es_dirigido=True)
     
@@ -11,7 +11,7 @@ def test01_archivo_sin_depositos_ni_rutas_genera_un_grafo_vacio():
 
 
 def test02_se_puede_generar_un_grafo_con_rutas_subencionadas():
-    rutas = 'depositos_con_rutas_subvencionadas.txt'
+    rutas = 'tests/depositos_con_rutas_subvencionadas.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
     
@@ -21,7 +21,7 @@ def test02_se_puede_generar_un_grafo_con_rutas_subencionadas():
 
 
 def test03_se_puede_generar_un_grafo_con_rutas_costosas():
-    rutas = 'depositos_con_rutas_costosas.txt'
+    rutas = 'tests/depositos_con_rutas_costosas.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
     
@@ -31,7 +31,7 @@ def test03_se_puede_generar_un_grafo_con_rutas_costosas():
 
 
 def test04_se_puede_generar_un_grafo_con_rutas_costosas_y_subencionadas():
-    rutas = 'depositos_con_rutas_costosas_y_subvencionadas.txt'
+    rutas = 'tests/depositos_con_rutas_costosas_y_subvencionadas.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
     
@@ -41,7 +41,7 @@ def test04_se_puede_generar_un_grafo_con_rutas_costosas_y_subencionadas():
 
 
 def test05_no_puede_haber_ciclos_negativos_entre_rutas():
-    rutas = 'depositos_con_ciclos_negativos.txt'
+    rutas = 'tests/depositos_con_ciclos_negativos.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
 
@@ -50,7 +50,7 @@ def test05_no_puede_haber_ciclos_negativos_entre_rutas():
 
 
 def test06_bellman_ford_resuelve_grafos_sin_ciclos_negativos():
-    rutas = 'depositos_sin_ciclos_negativos.txt'
+    rutas = 'tests/depositos_sin_ciclos_negativos.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
     
@@ -70,7 +70,7 @@ def test06_bellman_ford_resuelve_grafos_sin_ciclos_negativos():
 
 
 def test07_dijkstra_resuelve_grafos_sin_ciclos_negativos():
-    rutas = 'depositos_sin_ciclos_negativos.txt'
+    rutas = 'tests/depositos_sin_ciclos_negativos.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
     
@@ -88,7 +88,7 @@ def test07_dijkstra_resuelve_grafos_sin_ciclos_negativos():
     assert padres['E'] == 'B'
 
 def test08_johnson_resuelve_el_ejemplo():
-    rutas = 'depositos_sin_ciclos_negativos.txt'
+    rutas = 'tests/depositos_sin_ciclos_negativos.txt'
 
     grafo = Grafo.desde_txt(rutas, es_dirigido=True)
 
