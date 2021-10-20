@@ -1,6 +1,6 @@
 # ¿Cómo descargar el trabajo?
 
-Descargar la [release]() y usar la carpeta `tp2` y seguir las instrucciones que siguen
+Descargar la [release](https://github.com/ilitteri/7529-TDA-1/releases/tag/v1.0) y usar la carpeta `tp2` y seguir las instrucciones que siguen
 
 # ¿Cómo ejecutar el programa?
 
