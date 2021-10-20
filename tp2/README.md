@@ -1,3 +1,7 @@
+# ¿Cómo descargar el trabajo?
+
+Descargar la [release]() y usar la carpeta `tp2` y seguir las instrucciones que siguen
+
 # ¿Cómo ejecutar el programa?
 
 ## Para instalar las dependencias
